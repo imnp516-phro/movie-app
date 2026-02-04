@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { MovieType } from "../../../types/movie";
@@ -40,7 +40,8 @@ export default function Movie({data}:{data: MovieType}){
     return(
         <div className="bg-zinc-900 rounded-lg overflow-hidden shadow-lg border border-zinc-800 flex flex-col h-full">
      {/* Phần ảnh Poster */}
-      <div className="relative h-80 w-full overflow-hidden">
+     <Link href={`/movie/${data.id}`}>
+        <div className="relative h-80 w-full overflow-hidden">
         {data.poster_path ? (
           <Image
             src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
@@ -55,7 +56,8 @@ export default function Movie({data}:{data: MovieType}){
           </div>
         )}
       </div>
-
+     </Link>
+   
       {/* Phần thông tin & Nút bấm */}
       <div className="p-4 flex flex-col grow">
         <h3 className="text-white font-bold text-lg truncate mb-1" title={data.title}>

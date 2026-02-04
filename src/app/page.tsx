@@ -19,7 +19,7 @@ export default function Home() {
           Phim Đang Thịnh Hành
         </h2>
         {/* Gọi component MovieList để hiển thị danh sách phim */}
-        <MovieList />
+        <MovieList/>
       </div>
     </main>
   );

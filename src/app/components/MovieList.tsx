@@ -47,7 +47,7 @@ export default function MovieList(){
     // upcoming
 
     const fetchUpcoming = async () => {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=vi-VN&page=1`)
+        const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=vi-VN&page=1`)
         const data = await res.json();
         setMovies(data.results || [])
         setActiveTab("upcoming");

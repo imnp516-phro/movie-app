@@ -1,35 +1,58 @@
 // READ
+"use client";
+
 import Movie from "./Movie";
 import { MovieType } from "../../../types/movie";
-
-// 1. Hàm lấy dữ liệu từ TMDB (Chạy trên Server)
-
-async function getMovies(){
-
-    const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-    // Gọi API lấy danh sách phim phổ biến
-    const res = await fetch(    
-        `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=vi-VN&page=1`,
-    )
-
-    if(!res){
-        throw new Error("Can't take film list")
-    }
-
-    return res.json();
-
-}
+import { useState, useEffect } from "react";
 
 
 export default async function MovieList(){
-
-    const data = await getMovies();
-    const movies = data.results;
+    // 1. State lưu danh sách phim và Tab đang chọn
+    const [movies, setMovies] = useState<MovieType[]>([])
+    const [activeTab, setActiveTab] = useState("popular")
+    // API key
+    const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY
     
+    // --- 2. KHAI BÁO 3 HÀM FETCH RIÊNG BIỆT ---
+
+    // popular
+
+    const fetchPopular = async () => { 
+        const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=vi-VN&page=1`)
+        const data = await res.json();
+        setMovies(data.results || []);
+        setActiveTab("popular") // Đánh dấu đang ở tab này
+    }
+
+    // top rated
+
+    const fetchTopRated = async () => {
+        const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=vi-VN&page=1`)
+        const data = await res.json();
+        setMovies(data.results || [])
+        setActiveTab("top_rated")
+    }
+
+    // upcoming
+
+    const fetchUpcoming = async () => {
+        const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=vi-VN&page=1`)
+        const data = await res.json();
+        setMovies(data.results || [])
+        setActiveTab("upcoming");
+    }
+    // --- 3. TỰ ĐỘNG CHẠY LẦN ĐẦU TIÊN ---
+    useEffect(() => {
+        fetchPopular(); // Mặc định vào trang là load phim Phổ biến ngay
+    }, [])
+
     return(
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 p-4">
-            {/* Loop for printing movie */}
-            {movies.map((movie: MovieType) => (<Movie key={movie.id} data={movie}/>))}
+        <div>
+
+            <div>
+                
+            </div>
+
         </div>
     )
 }

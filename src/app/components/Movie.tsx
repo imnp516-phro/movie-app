@@ -20,7 +20,7 @@ export default function Movie({data}:{data: MovieType}){
         const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]")
         if(isSaved){
             //DELETE 
-            const newList = watchlist.filer((item: MovieType) =>  item.id !== data.id)
+            const newList = watchlist.filter((item: MovieType) =>  item.id !== data.id)
             localStorage.setItem("watchlist", JSON.stringify(newList));
             setIsSaved(false);
             alert("deleted movie from library!")
